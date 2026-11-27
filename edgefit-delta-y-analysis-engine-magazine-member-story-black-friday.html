@@ -116,53 +116,81 @@ table{width:100%;border-collapse:collapse;margin:18px 0 24px;font-size:12px;back
 .free-trial-promo.black-friday{border:2px solid #e4bd48;background:linear-gradient(135deg,#263b3b,#111f29);box-shadow:0 10px 28px #07151c40}
 .free-trial-promo.black-friday h3{font-size:clamp(23px,3.2vw,32px)}
 @media(max-width:680px){.member-story-layout{grid-template-columns:1fr}.member-video-frame{width:min(100%,310px);justify-self:center}.gallery-track figure{flex-basis:68%}}
+/* Wrapper prevents horizontal page scrolling on mobile */
 .gallery-wrapper {
   width: 100%;
   overflow: hidden;
   position: relative;
+  margin: 24px 0;
+  padding: 10px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
 }
 
+/* Track forces all 16+ items onto a single horizontal row without squishing */
 .gallery-track {
   display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
   width: max-content;
-  /* Adjust 40s to change speed (higher = slower) */
-  animation: scrollLeftToRight 40s linear infinite;
+  will-change: transform;
+  animation: scrollGallery 38s linear infinite;
 }
 
-/* Optional: Pause scrolling when the user hovers over an image */
-.gallery-wrapper:hover .gallery-track {
+/* Pause on hover (desktop) or touch-hold (mobile) */
+.gallery-wrapper:hover .gallery-track,
+.gallery-wrapper:active .gallery-track {
   animation-play-state: paused;
 }
 
 .gallery-track figure {
+  flex: 0 0 auto;
+  width: 240px; /* Desktop card width */
   margin: 0;
-  padding-right: 16px; /* Acts as gap without breaking the 50% loop math */
-  flex-shrink: 0;
-  width: 280px; /* Set your desired card width */
-  text-align: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(16, 24, 32, 0.08);
 }
 
 .gallery-track img {
   width: 100%;
-  height: 260px; /* Keeps before/after photos uniform */
+  height: 280px;
   object-fit: cover;
-  border-radius: 10px;
   display: block;
 }
 
 .gallery-track figcaption {
-  margin-top: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  background: #fff;
 }
 
-/* Left-to-Right Seamless Loop */
-@keyframes scrollLeftToRight {
+/* Seamless infinite loop using hardware-accelerated 3D transform */
+@keyframes scrollGallery {
   0% {
-    transform: translateX(-50%);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(0);
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 680px) {
+  .gallery-track {
+    gap: 10px;
+    animation-duration: 28s; /* Slightly faster on smaller screens */
+  }
+  .gallery-track figure {
+    width: 175px; /* Compact width so multiple cards are visible on mobile */
+  }
+  .gallery-track img {
+    height: 210px;
   }
 }
 </style>
@@ -312,23 +340,25 @@ table{width:100%;border-collapse:collapse;margin:18px 0 24px;font-size:12px;back
  <div class="gallery-heading">
   <div><h3>Transformation journeys</h3><p><b>So many people have gotten results using this system, now made easy on a fitness logging/tracking and AI Analysis application. So why can't you?</b></p></div>
 
- <div class="gallery-track gallery-wrapper" id="transformationGallery" aria-label="Transformation image carousel">
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example1.png" alt="Fitness transformation journey example 1" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example10.jpg" alt="Fitness transformation journey example 2" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example10.png" alt="Fitness transformation journey example 3" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example11.jpg" alt="Fitness transformation journey example 4" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example11.png" alt="Fitness transformation journey example 5" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example12.png" alt="Fitness transformation journey example 6" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example13.png" alt="Fitness transformation journey example 7" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example2.png" alt="Fitness transformation journey example 8" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example3.png" alt="Fitness transformation journey example 9" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example4.png" alt="Fitness transformation journey example 10" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example5.jpg" alt="Fitness transformation journey example 11" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example5.png" alt="Fitness transformation journey example 12" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example6.png" alt="Fitness transformation journey example 13" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example7.png" alt="Fitness transformation journey example 14" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example8.png" alt="Fitness transformation journey example 15" loading="lazy"><figcaption></figcaption></figure>
-  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example9.png" alt="Fitness transformation journey example 16" loading="lazy"><figcaption></figcaption></figure>
+<div class="gallery-wrapper">
+  <div class="gallery-track" id="transformationGallery" aria-label="Transformation image carousel">
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example1.png" alt="Fitness transformation journey example 1" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example10.jpg" alt="Fitness transformation journey example 2" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example10.png" alt="Fitness transformation journey example 3" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example11.jpg" alt="Fitness transformation journey example 4" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example11.png" alt="Fitness transformation journey example 5" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example12.png" alt="Fitness transformation journey example 6" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example13.png" alt="Fitness transformation journey example 7" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example2.png" alt="Fitness transformation journey example 8" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example3.png" alt="Fitness transformation journey example 9" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example4.png" alt="Fitness transformation journey example 10" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example5.jpg" alt="Fitness transformation journey example 11" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example5.png" alt="Fitness transformation journey example 12" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example6.png" alt="Fitness transformation journey example 13" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example7.png" alt="Fitness transformation journey example 14" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example8.png" alt="Fitness transformation journey example 15" loading="lazy"><figcaption></figcaption></figure>
+	  <figure><img src="https://consumerreport.github.io/FitnessTech/pictures/body-transforms/example9.png" alt="Fitness transformation journey example 16" loading="lazy"><figcaption></figcaption></figure>
+	</div>
  </div>
 </div>
 <p class="copy">The following customer statements were supplied in the existing Edgefit advertorial. They are presented as individual experiences, not as independently verified performance claims or typical-result guarantees.</p><div class="testimonial-grid"><article class="testimonial-card"><div class="stars" aria-label="Five star review">★★★★★</div><blockquote>“I used to bounce between three different fitness and macro apps every single week, paying over fifty bucks a month for rigid templates that didn't fit my schedule. Edgefit.app replaced all of them overnight. Being able to build hybrid cyclical splits and automatically generate my grocery list from my AI macro targets saved me hours every Sunday. Best $1 trial decision I've made.”</blockquote><div class="testimonial-person"><strong>Todd Wainman</strong><span>Certified Strength &amp; Conditioning Specialist · Personal Trainer</span></div><a class="text-link" href="https://www.linkedin.com/in/todd-wainman-241a29147/" target="_blank" rel="noopener noreferrer">View LinkedIn profile ↗</a></article><article class="testimonial-card"><div class="stars" aria-label="Five star review">★★★★★</div><blockquote>“Between classes and lab hours, I don't have time to manually calculate macros or wander around the grocery store guessing what to buy. Edgefit.app lays out my training split, dials in my daily nutrition numbers, and gives me an exact shopping list in seconds. Plus, zero hidden fees or shady auto-renewal traps—everything is crystal clear in account settings.”</blockquote><div class="testimonial-person"><strong>Samantha P.</strong><span>Professional title not verified from accessible public profile</span></div><a class="text-link" href="https://www.linkedin.com/in/samantha-p-b49a1a325/" target="_blank" rel="noopener noreferrer">View LinkedIn profile ↗</a></article><article class="testimonial-card"><div class="stars" aria-label="Five star review">★★★★★</div><blockquote>“Most workout apps trap you in boring 7-day cookie-cutter routines where you can't even customize your lifts. Edgefit lets me name my own movements, log pause-hold and time-based sets, and structure longer training blocks that actually match my athletic goals. Having my workouts and grocery list under one roof is a massive upgrade.”</blockquote><div class="testimonial-person"><strong>Sharnah Baptiste</strong><span>Social Media Content Executive · Nottingham Trent University</span></div><a class="text-link" href="https://www.linkedin.com/in/sharnah-baptiste-59a936153/" target="_blank" rel="noopener noreferrer">View LinkedIn profile ↗</a></article><article class="testimonial-card"><div class="stars" aria-label="Five star review">★★★★★</div><blockquote>“As someone who appreciates clean software architecture, Edgefit.app is miles ahead of clunky legacy fitness apps. There are no crashes, no syncing headaches, and the mobile browser layout is fast and intuitive. Combining custom progression tracking with AI macro targets for under $250 a year—starting at just $1—is unbeatable value.”</blockquote><div class="testimonial-person"><strong>Zhuo Liu</strong><span>Professional title not verified from accessible public profile</span></div><a class="text-link" href="https://www.linkedin.com/in/zhuo-liu-67a028198/" target="_blank" rel="noopener noreferrer">View LinkedIn profile ↗</a></article><article class="testimonial-card"><div class="stars" aria-label="Five star review">★★★★★</div><blockquote>“I was skeptical after getting burned by surprise annual renewals on other fitness apps, so I started with Edgefit's $1 first-month offer. Not only was the billing 100% transparent, but the AI macro targets and automated grocery lists actually kept me consistent for the first time all year. I canceled my other two subscriptions the first week.”</blockquote><div class="testimonial-person"><strong>Ilan Averbuch</strong><span>Professional title not verified from accessible public profile</span></div><a class="text-link" href="https://www.linkedin.com/in/ilan-averbuch-2808a8419/" target="_blank" rel="noopener noreferrer">View LinkedIn profile ↗</a></article><article class="testimonial-card"><div class="stars" aria-label="Five star review">★★★★★</div><blockquote>“Having one mobile app that handles both my lifting program and my weekly grocery shopping completely removed the stress from staying on track. I love that I can tweak my workouts whenever my schedule changes and still hit my nutrition targets without doing math all day. Truly simple and worth every penny.”</blockquote><div class="testimonial-person"><strong>Hailey Filer</strong><span>BSN Student · Chamberlain University (public profile summary)</span></div><a class="text-link" href="https://www.linkedin.com/in/hailey-filer-54339a1a9/" target="_blank" rel="noopener noreferrer">View LinkedIn profile ↗</a></article><article class="testimonial-card"><div class="stars" aria-label="Five star review">★★★★★</div><blockquote>“I nearly hired an online coach for $200 a month before finding Edgefit.app. Between the custom workout builder, flexible rep and time logging, and automated grocery lists tailored to my goals, it gives me everything I needed at a fraction of the cost. It's the most practical fitness tool on my phone.”</blockquote><div class="testimonial-person"><strong>Mike Crosky</strong><span>Founder, Train With Mike · Certified Personal Trainer</span></div><a class="text-link" href="https://www.linkedin.com/in/mikecrosky/" target="_blank" rel="noopener noreferrer">View LinkedIn profile ↗</a></article></div><p class="note">Publication note: confirm each reviewer’s permission to publish their name, statement and profile link. A testimonial reflects an individual account and does not guarantee the same experience for every member.</p></section>
@@ -411,13 +441,14 @@ addEventListener('scroll',updateProgress,{passive:true});addEventListener('resiz
 </div>
 
 <script>
-  const track = document.getElementById('transformationGallery');
-  const items = Array.from(track.children);
-
-  items.forEach(item => {
-    const clone = item.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true'); // Keeps screen readers from reading duplicates
-    track.appendChild(clone);
+  document.addEventListener("DOMContentLoaded", () => {
+    const track = document.getElementById("transformationGallery");
+    if (track) {
+      // Remove lazy loading so mobile browsers don't leave off-screen slides blank
+      track.querySelectorAll("img").forEach(img => img.removeAttribute("loading"));
+      // Clone all slides once for a seamless infinite loop
+      track.innerHTML += track.innerHTML;
+    }
   });
 </script>
 <script>
